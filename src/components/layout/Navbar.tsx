@@ -3,7 +3,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Menu, X, ChevronDown, Phone, Mail, Search,
-  GraduationCap, Sun, Moon, ExternalLink
+  GraduationCap
 } from 'lucide-react';
 import { cn } from '@/utils/cn';
 
@@ -52,7 +52,16 @@ const navItems: NavItem[] = [
     ],
   },
   {
-    label: 'Facilities',
+    label: 'Admissions',
+    href: '/admissions',
+    children: [
+      { label: 'Apply Now', href: '/courses', description: 'Start your application process' },
+      { label: 'Prospectus', href: '/admissions/prospectus', description: 'Download the college prospectus' },
+      { label: 'Fee Structure', href: '/admissions/fees', description: 'Detailed fee information' },
+    ]
+  },
+  {
+    label: 'Campus Life',
     href: '/infrastructure',
     children: [
       { label: 'Central Library', href: '/infrastructure/central-library' },
@@ -61,17 +70,21 @@ const navItems: NavItem[] = [
       { label: 'Sports Complex', href: '/infrastructure/sports-complex' },
     ],
   },
-  { label: 'Notices', href: '/notices' },
-  { label: 'News & Events', href: '/events' },
-  { label: 'Placements', href: '/placements' },
-  { label: 'Contact', href: '/contact' },
+  {
+    label: 'Announcements',
+    href: '/updates',
+    children: [
+      { label: 'Notice Board', href: '/notices', description: 'Important announcements' },
+      { label: 'News & Events', href: '/events', description: 'Campus life and activities' },
+    ]
+  },
+  { label: 'Careers', href: '/placements' },
 ];
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
   const location = useLocation();
   const navRef = useRef<HTMLElement>(null);
 
@@ -96,35 +109,30 @@ export default function Navbar() {
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  useEffect(() => {
-    if (darkMode) document.documentElement.classList.add('dark');
-    else document.documentElement.classList.remove('dark');
-  }, [darkMode]);
-
   return (
     <>
       {/* ── Topbar ── */}
-      <div className="bg-navy-900 text-white text-xs hidden md:block">
-        <div className="max-w-7xl mx-auto px-4 py-2 flex justify-between items-center">
+      <div className="bg-navy-900 text-white text-[11px] font-medium hidden md:block">
+        <div className="max-w-[1440px] mx-auto px-4 xl:px-8 py-1.5 flex justify-between items-center">
           <div className="flex gap-6">
-            <a href="tel:02225218797" className="flex items-center gap-1.5 hover:text-teal-400 transition-colors">
-              <Phone size={11} />
+            <a href="tel:02225218797" className="flex items-center gap-1.5 text-navy-50 hover:text-teal-300 transition-colors">
+              <Phone size={12} />
               022-25218797
             </a>
-            <a href="mailto:office@acharyamarathecollege.in" className="flex items-center gap-1.5 hover:text-teal-400 transition-colors">
-              <Mail size={11} />
+            <a href="mailto:office@acharyamarathecollege.in" className="flex items-center gap-1.5 text-navy-50 hover:text-teal-300 transition-colors">
+              <Mail size={12} />
               office@acharyamarathecollege.in
             </a>
           </div>
           <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-gold-500 badge-pulse" />
+            <span className="flex items-center gap-1.5 text-gold-50">
+              <span className="w-1.5 h-1.5 rounded-full bg-gold-400 badge-pulse" />
               NAAC Accredited — 'A' Grade
             </span>
-            <a href="https://ngacharya.edu.in/erp" target="_blank" rel="noopener noreferrer"
-               className="flex items-center gap-1 hover:text-teal-400 transition-colors">
-              Student ERP <ExternalLink size={10} />
-            </a>
+            <div className="w-px h-3 bg-navy-50/30" />
+            <Link to="/contact" className="hover:text-teal-300 transition-colors tracking-wide">
+              Contact Us
+            </Link>
           </div>
         </div>
       </div>
@@ -135,70 +143,72 @@ export default function Navbar() {
         className={cn(
           'sticky top-0 z-50 transition-all duration-300',
           scrolled
-            ? 'bg-white/95 backdrop-blur-md shadow-navy border-b border-navy-100'
+            ? 'bg-white/90 backdrop-blur-md shadow-sm border-b border-navy-50'
             : 'bg-white shadow-sm'
         )}
       >
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="flex items-center justify-between h-16 md:h-[4.5rem]">
+        <div className="max-w-[1440px] mx-auto px-4 xl:px-8">
+          <div className="flex items-center justify-between h-16 md:h-20">
 
             {/* ── Logo ── */}
-            <Link to="/" className="flex items-center gap-3 group" aria-label="Home">
-              <div className="w-11 h-11 rounded-xl bg-navy-700 flex items-center justify-center flex-shrink-0 group-hover:bg-teal-600 transition-colors">
-                <GraduationCap size={22} className="text-white" />
-              </div>
-              <div className="hidden sm:block">
-                <p className="font-display font-bold text-navy-900 text-sm leading-tight">
-                  N.G. Acharya & D.K. Marathe
+            <div className="flex items-center min-w-0 flex-shrink-0 mr-2 xl:mr-4">
+              <Link to="/" className="flex flex-col justify-center group" aria-label="Home">
+                <p className="text-[#e31e24] text-[8px] xl:text-[9px] font-bold tracking-wider uppercase leading-tight">
+                  Chembur Trombay Education Society's
                 </p>
-                <p className="text-xs text-gray-500 font-sans-custom">
+                <h1 className="font-display font-black text-navy-900 text-[14px] xl:text-[17px] uppercase leading-tight tracking-tight group-hover:text-teal-700 transition-colors">
+                  N.G. Acharya & D.K. Marathe
+                </h1>
+                <p className="text-[10px] xl:text-[11px] text-gray-500 font-semibold leading-tight">
                   College of Arts, Science & Commerce
                 </p>
-              </div>
-            </Link>
+              </Link>
+            </div>
 
             {/* ── Desktop Nav ── */}
-            <nav className="hidden lg:flex items-center gap-0.5">
+            <nav className="hidden xl:flex items-center gap-1 xl:gap-2">
               {navItems.map(item => (
-                <div key={item.label} className="relative">
+                <div key={item.label} className="relative group/navitem">
                   {item.children ? (
                     <button
                       className={cn(
-                        'flex items-center gap-1 px-3 py-2 text-sm font-medium rounded-lg transition-all',
-                        'text-gray-700 hover:text-navy-700 hover:bg-navy-50',
-                        openDropdown === item.label && 'text-navy-700 bg-navy-50'
+                        'flex items-center gap-1 px-3 py-2 text-[13px] font-semibold rounded-full transition-all duration-300 whitespace-nowrap',
+                        openDropdown === item.label
+                          ? 'bg-navy-50 text-navy-900'
+                          : 'text-gray-600 hover:bg-navy-50/50 hover:text-navy-900'
                       )}
                       onClick={() => setOpenDropdown(openDropdown === item.label ? null : item.label)}
                       onMouseEnter={() => setOpenDropdown(item.label)}
                     >
                       {item.label}
                       <ChevronDown size={14} className={cn(
-                        'transition-transform duration-200',
-                        openDropdown === item.label && 'rotate-180'
+                        'transition-transform duration-300',
+                        openDropdown === item.label && 'rotate-180 text-teal-600'
                       )} />
                     </button>
                   ) : (
                     <NavLink
                       to={item.href}
                       className={({ isActive }) => cn(
-                        'px-3 py-2 text-sm font-medium rounded-lg transition-all nav-link',
-                        'text-gray-700 hover:text-navy-700 hover:bg-navy-50',
-                        isActive && 'text-navy-700 font-semibold'
+                        'relative px-3 py-2 text-[13px] font-semibold rounded-full transition-all duration-300 whitespace-nowrap',
+                        isActive
+                          ? 'bg-navy-50 text-navy-900'
+                          : 'text-gray-600 hover:bg-navy-50/50 hover:text-navy-900'
                       )}
                     >
                       {item.label}
                     </NavLink>
                   )}
 
-                  {/* Dropdown */}
+                  {/* Dropdown - Glass Panel */}
                   <AnimatePresence>
                     {item.children && openDropdown === item.label && (
                       <motion.div
-                        initial={{ opacity: 0, y: 8, scale: 0.96 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: 8, scale: 0.96 }}
-                        transition={{ duration: 0.15, ease: 'easeOut' }}
-                        className="absolute top-full left-0 mt-1 w-72 bg-white rounded-2xl shadow-hover border border-navy-100 overflow-hidden"
+                        initial={{ opacity: 0, y: 12, filter: 'blur(4px)' }}
+                        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                        exit={{ opacity: 0, y: 8, filter: 'blur(4px)' }}
+                        transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
+                        className="absolute top-full left-0 mt-2 w-72 bg-white/95 backdrop-blur-xl rounded-2xl shadow-[0_8px_30px_rgb(0,0,0,0.08)] border border-white/20 overflow-hidden ring-1 ring-black/5"
                         onMouseLeave={() => setOpenDropdown(null)}
                       >
                         <div className="p-2">
@@ -206,14 +216,16 @@ export default function Navbar() {
                             <Link
                               key={child.href}
                               to={child.href}
-                              className="block px-4 py-3 rounded-xl hover:bg-navy-50 transition-colors group/link"
+                              className="block px-4 py-3 rounded-xl hover:bg-navy-50/80 transition-all duration-200 group/link relative overflow-hidden"
                             >
-                              <p className="text-sm font-medium text-navy-800 group-hover/link:text-navy-700">
-                                {child.label}
-                              </p>
-                              {child.description && (
-                                <p className="text-xs text-gray-500 mt-0.5">{child.description}</p>
-                              )}
+                              <div className="relative z-10">
+                                <p className="text-sm font-semibold text-navy-900 group-hover/link:text-teal-700 transition-colors">
+                                  {child.label}
+                                </p>
+                                {child.description && (
+                                  <p className="text-xs text-gray-500 mt-0.5 leading-relaxed">{child.description}</p>
+                                )}
+                              </div>
                             </Link>
                           ))}
                         </div>
@@ -225,33 +237,31 @@ export default function Navbar() {
             </nav>
 
             {/* ── Actions ── */}
-            <div className="flex items-center gap-2">
-              <button
-                aria-label="Search"
-                className="p-2 rounded-lg text-gray-600 hover:text-navy-700 hover:bg-navy-50 transition-all"
-              >
-                <Search size={18} />
-              </button>
-              <button
-                aria-label="Toggle dark mode"
-                onClick={() => setDarkMode(!darkMode)}
-                className="p-2 rounded-lg text-gray-600 hover:text-navy-700 hover:bg-navy-50 transition-all hidden sm:flex"
-              >
-                {darkMode ? <Sun size={18} /> : <Moon size={18} />}
-              </button>
+            <div className="flex items-center gap-3 xl:gap-4">
+              {/* Utilities Pill */}
+              <div className="hidden sm:flex items-center bg-gray-50 border border-gray-100 rounded-full p-1 shadow-sm">
+                <button
+                  aria-label="Search"
+                  className="p-1.5 rounded-full text-gray-500 hover:text-navy-700 hover:bg-white hover:shadow-sm transition-all"
+                >
+                  <Search size={16} strokeWidth={2.5} />
+                </button>
+              </div>
+
               <Link
                 to="/courses"
-                className="hidden lg:inline-flex items-center gap-2 px-4 py-2 bg-teal-600 text-white text-sm font-semibold rounded-xl hover:bg-teal-700 transition-all shadow-sm"
+                className="hidden md:inline-flex items-center justify-center px-5 py-2 bg-navy-900 text-white text-[13px] font-bold tracking-wide uppercase rounded-full hover:bg-navy-800 transition-colors shadow-sm ring-1 ring-navy-900/10 hover:shadow-md whitespace-nowrap"
               >
                 Apply Now
               </Link>
+              
               {/* Mobile menu toggle */}
               <button
                 aria-label={isOpen ? 'Close menu' : 'Open menu'}
                 onClick={() => setIsOpen(!isOpen)}
-                className="lg:hidden p-2 rounded-lg text-gray-600 hover:text-navy-700 hover:bg-navy-50 transition-all"
+                className="xl:hidden p-2 rounded-lg text-gray-800 hover:bg-gray-100 transition-colors"
               >
-                {isOpen ? <X size={22} /> : <Menu size={22} />}
+                {isOpen ? <X size={24} /> : <Menu size={24} />}
               </button>
             </div>
           </div>
@@ -265,16 +275,16 @@ export default function Navbar() {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.2 }}
-              className="lg:hidden border-t border-navy-100 bg-white overflow-hidden"
+              className="xl:hidden border-t border-navy-50 bg-white/95 backdrop-blur-md overflow-hidden shadow-lg"
             >
               <div className="px-4 py-3 max-h-[75vh] overflow-y-auto">
                 {navItems.map(item => (
                   <MobileNavItem key={item.label} item={item} />
                 ))}
-                <div className="mt-4 pt-4 border-t border-gray-100">
+                <div className="mt-5 pt-5 border-t border-navy-50 mb-4">
                   <Link
                     to="/courses"
-                    className="block w-full text-center px-4 py-3 bg-teal-600 text-white text-sm font-semibold rounded-xl"
+                    className="block w-full text-center px-4 py-3.5 bg-teal-600 text-white text-sm font-semibold rounded-xl hover:bg-teal-700 transition-colors shadow-sm"
                   >
                     Apply Now — 2025-26 Admissions Open
                   </Link>

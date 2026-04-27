@@ -2,21 +2,7 @@ import PageLayout from '@/components/layout/PageLayout';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Book, Phone, Mail, BookOpen, Microscope, Award, GraduationCap } from 'lucide-react';
 
-function PlaceholderPage({ title, subtitle, path }: { title: string; subtitle: string; path: string }) {
-  return (
-    <PageLayout title={title} subtitle={subtitle} breadcrumbItems={[{ label: title }]}>
-      <div className="text-center py-16">
-        <p className="text-gray-600 text-lg mb-8">This page is coming soon!</p>
-        <Link
-          to="/"
-          className="inline-flex items-center gap-2 px-6 py-3 bg-teal-600 text-white font-semibold rounded-lg hover:bg-teal-700 transition-all"
-        >
-          Back to Home <ArrowRight size={16} />
-        </Link>
-      </div>
-    </PageLayout>
-  );
-}
+
 
 export function AdmissionsPage() {
   return (

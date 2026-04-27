@@ -95,43 +95,49 @@ export default function EventCard({ event, index = 0, featured = false }: EventC
   // Regular card
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.3, delay: index * 0.05 }}
+      className="h-full"
     >
       <Link
         to={`/events/${event.slug}`}
-        className="group block bg-white rounded-lg border border-gray-100 shadow-card hover:shadow-hover hover:-translate-y-0.5 transition-all duration-300 overflow-hidden"
+        className="group flex flex-col h-full bg-white rounded-2xl shadow-card hover:shadow-xl border border-gray-100 hover:border-teal-100 transition-all duration-300 overflow-hidden relative"
       >
-        {/* ── Mini hero ── */}
-        <div className={cn(
-          'h-32 bg-gradient-to-br flex items-end justify-end p-4 relative',
-          categoryBg[event.category] ?? 'from-navy-700 to-navy-900'
-        )}>
-          <div className="absolute inset-0 bg-black/10" />
-          <div className="relative text-white text-center w-full">
-            <div className="text-3xl font-bold font-display">{eventDate.getDate()}</div>
-            <p className="text-xs font-medium opacity-90">
-              {eventDate.toLocaleDateString('en-IN', { month: 'short' })}
-            </p>
-          </div>
-        </div>
+        {/* Subtle top border accent line based on category */}
+        <div className={cn("absolute top-0 left-0 right-0 h-1 bg-gradient-to-r", categoryBg[event.category] ?? 'from-navy-600 to-teal-600')} />
 
-        {/* ── Content ── */}
-        <div className="p-4">
-          <span className="inline-block text-xs font-bold px-2 py-0.5 rounded-full bg-gray-100 text-gray-700 mb-2">
-            {event.category}
-          </span>
-          <h4 className="font-semibold text-navy-900 text-sm leading-tight mb-2 line-clamp-2 group-hover:text-navy-700 transition-colors">
-            {event.title}
-          </h4>
-          <p className="text-xs text-gray-600 line-clamp-1 mb-3 flex items-center gap-1">
-            <MapPin size={11} className="text-teal-500 flex-shrink-0" />
-            {event.venue}
+        <div className="p-6 flex flex-col h-full">
+          <div className="flex gap-4 items-start mb-4">
+            {/* ── Date Calendar Icon ── */}
+            <div className="flex flex-col items-center justify-center flex-shrink-0 bg-gray-50 border border-gray-100 rounded-xl w-14 h-16 shadow-sm group-hover:bg-navy-50 group-hover:border-navy-100 transition-colors">
+              <span className="text-[10px] font-bold text-teal-600 uppercase tracking-widest">{eventDate.toLocaleDateString('en-IN', { month: 'short' })}</span>
+              <span className="text-2xl font-bold text-navy-900 leading-none mt-0.5">{eventDate.getDate()}</span>
+            </div>
+
+            <div className="flex-1 min-w-0 pt-1">
+              <span className="inline-block text-[10px] font-bold px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 mb-2 uppercase tracking-wide">
+                {event.category}
+              </span>
+              <h4 className="font-bold font-display text-navy-900 text-lg leading-tight line-clamp-2 group-hover:text-teal-600 transition-colors">
+                {event.title}
+              </h4>
+            </div>
+          </div>
+
+          <p className="text-sm text-gray-600 line-clamp-2 mb-6 flex-1">
+            {event.description || "Join us for this exciting upcoming event. Make sure to mark your calendar."}
           </p>
-          <span className="text-xs font-medium text-teal-600 flex items-center gap-1">
-            {isUpcoming ? '🎉 Upcoming' : '✓ Completed'}
-          </span>
+
+          <div className="pt-4 border-t border-gray-100 flex items-center justify-between mt-auto">
+            <p className="text-xs text-gray-500 font-medium flex items-center gap-1.5">
+              <MapPin size={14} className="text-gray-400" />
+              <span className="truncate max-w-[120px]">{event.venue}</span>
+            </p>
+            <span className="text-xs font-bold text-teal-600 flex items-center gap-1 group-hover:gap-1.5 transition-all">
+              {isUpcoming ? 'Reserve Spot' : 'View Recap'} <ArrowRight size={14} />
+            </span>
+          </div>
         </div>
       </Link>
     </motion.div>

@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+import SocialSidebar from '@/components/layout/SocialSidebar';
 
 import HomePage from '@/pages/HomePage';
 import CoursesPage from '@/pages/CoursesPage';
@@ -57,8 +58,9 @@ function NotFoundPage() {
 export default function App() {
   return (
     <BrowserRouter>
-      <div className="flex flex-col min-h-screen bg-white">
+      <div className="flex flex-col min-h-screen bg-white relative">
         <Navbar />
+        <SocialSidebar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutOverviewPage />} />

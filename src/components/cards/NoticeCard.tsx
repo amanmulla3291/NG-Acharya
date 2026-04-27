@@ -31,19 +31,13 @@ export default function NoticeCard({ notice, index = 0 }: NoticeCardProps) {
     >
       <Link
         to={`/notices/${notice.slug}`}
-        className="group block bg-white rounded-xl border border-gray-100 shadow-card hover:shadow-hover hover:-translate-y-0.5 transition-all duration-300 overflow-hidden"
+        className="group block bg-white hover:bg-navy-50/50 transition-colors duration-300 relative"
       >
-        <div className="flex gap-4 p-5">
-          {/* ── Left icon ── */}
-          <div className={cn(
-            'w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0',
-            categoryColors[notice.category]?.split(' ').slice(0, 1)[0] ?? 'bg-navy-100'
-          )}>
-            {notice.isImportant ? (
-              <AlertCircle size={20} className="text-orange-600" />
-            ) : (
-              <FileText size={20} className="text-navy-600" />
-            )}
+        <div className="flex gap-4 p-5 sm:p-6">
+          {/* ── Left: Date Block ── */}
+          <div className="w-16 h-16 flex flex-col items-center justify-center flex-shrink-0 bg-navy-900 text-white rounded-xl shadow-md border border-navy-700 group-hover:scale-105 transition-transform duration-300">
+            <span className="text-[10px] font-bold tracking-widest uppercase text-navy-200">{published.toLocaleDateString('en-IN', { month: 'short' })}</span>
+            <span className="text-2xl font-bold leading-none mt-0.5">{published.getDate()}</span>
           </div>
 
           {/* ── Content ── */}
@@ -71,20 +65,21 @@ export default function NoticeCard({ notice, index = 0 }: NoticeCardProps) {
             </p>
 
             {/* ── Footer ── */}
-            <div className="flex items-center justify-between text-xs text-gray-500">
-              <div className="flex items-center gap-2">
-                <Calendar size={12} />
-                {published.toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' })}
+            <div className="flex items-center justify-between text-xs text-gray-500 mt-2">
+              <div className="flex items-center gap-2 font-medium">
+                {daysAgo === 0 ? 'Published Today' : `Published ${daysAgo} days ago`}
               </div>
-              {notice.attachmentUrl && (
-                <span className="flex items-center gap-1 text-teal-600 font-medium">
-                  <FileText size={12} />
-                  PDF Attached
+              <div className="flex items-center gap-4">
+                {notice.attachmentUrl && (
+                  <span className="flex items-center gap-1 text-teal-600 font-medium">
+                    <FileText size={12} />
+                    PDF
+                  </span>
+                )}
+                <span className="flex items-center gap-1 text-navy-600 font-bold group-hover:text-teal-600 transition-colors">
+                  Read Notice <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                 </span>
-              )}
-              <span className="flex items-center gap-1 text-teal-600 font-medium group-hover:gap-1.5 transition-all">
-                Read <ArrowRight size={12} />
-              </span>
+              </div>
             </div>
           </div>
         </div>
