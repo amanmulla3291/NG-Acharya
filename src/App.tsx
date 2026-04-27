@@ -16,6 +16,7 @@ import ContactPage from '@/pages/ContactPage';
 import PlacementsPage from '@/pages/PlacementsPage';
 import FeeStructurePage from '@/pages/FeeStructurePage';
 import StudentZonePage from '@/pages/StudentZonePage';
+import AboutOverviewPage from '@/pages/AboutOverviewPage';
 import {
   PrincipalPage,
   SecretaryMessagePage,
@@ -60,6 +61,7 @@ export default function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutOverviewPage />} />
           <Route path="/about/inspiration" element={<InspirationPage />} />
           <Route path="/about/founders" element={<FoundersPage />} />
           <Route path="/about/governing-council" element={<GoverningCouncilPage />} />

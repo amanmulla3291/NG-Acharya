@@ -265,8 +265,8 @@ export function InspirationPage() {
           className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-6"
         >
           {[
-            { icon: BookOpen, title: 'Academic Excellence', desc: 'NAAC \'A\' Grade recognition; 60 years of consistent results and research.' },
-            { icon: Users, title: 'Community Impact', desc: 'NSS, NCC, and outreach programmes serving Chembur and beyond.' },
+            { icon: BookOpen, title: 'Academic Excellence', desc: 'NAAC \'A\' Grade recognition; 45+ years of consistent results and research.' },
+            { icon: Users, title: 'Community Impact', desc: 'Acharya 90 FM, NSS, NCC, and outreach programmes serving Mumbai.' },
             { icon: Award, title: 'Character First', desc: 'Building integrity, empathy, and leadership alongside professional skills.' },
           ].map(({ icon: Icon, title, desc }) => (
             <div key={title} className="bg-teal-50 rounded-xl p-6 border border-teal-100">

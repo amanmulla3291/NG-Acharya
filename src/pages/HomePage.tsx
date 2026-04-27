@@ -58,9 +58,15 @@ export default function HomePage() {
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* ── Left: Text content ── */}
             <motion.div variants={fadeInUp} initial="initial" animate="animate">
-              <div className="flex items-center gap-2 mb-6">
-                <Award size={20} className="text-gold-400" />
-                <span className="text-sm font-semibold text-gold-300">NAAC Accredited 'A' Grade</span>
+              <div className="flex items-center gap-3 mb-6 flex-wrap">
+                <div className="flex items-center gap-2 px-3 py-1 bg-gold-400/20 rounded-full border border-gold-400/30 backdrop-blur-sm">
+                  <Award size={16} className="text-gold-400" />
+                  <span className="text-xs font-semibold text-gold-300">NAAC Accredited 'A' Grade</span>
+                </div>
+                <div className="flex items-center gap-2 px-3 py-1 bg-teal-500/20 rounded-full border border-teal-400/30 backdrop-blur-sm">
+                  <Star size={16} className="text-teal-400" />
+                  <span className="text-xs font-semibold text-teal-300">Best College Awardee</span>
+                </div>
               </div>
 
               <h1 className="font-display text-5xl md:text-6xl lg:text-7xl font-bold leading-tight text-balance mb-6">
@@ -69,7 +75,7 @@ export default function HomePage() {
               </h1>
 
               <p className="text-lg text-navy-200 leading-relaxed mb-8 max-w-xl">
-                Est. 1964 — N. G. Acharya & D. K. Marathe College transforms 6,000+ students across 25+ programmes with world-class education, industry exposure, and holistic development.
+                Est. 1978 — N. G. Acharya & D. K. Marathe College transforms 8,000+ students annually with a legacy of 45+ years in academic excellence and holistic development.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 mb-8">
@@ -90,14 +96,14 @@ export default function HomePage() {
               </div>
 
               {/* ── Trust badges ── */}
-              <div className="flex gap-4 flex-wrap">
+              <div className="flex gap-6 flex-wrap">
                 {[
-                  { icon: Users, label: '6,000+ Students' },
-                  { icon: Globe, label: 'Global Placements' },
-                  { icon: Star, label: 'Top Ranked' },
+                  { icon: Users, label: '8,000+ Students' },
+                  { icon: BookOpen, label: '40+ Programmes' },
+                  { icon: Globe, label: '90,000+ Alumni' },
                 ].map(({ icon: Icon, label }) => (
-                  <div key={label} className="flex items-center gap-2 text-sm text-navy-200">
-                    <Icon size={14} className="text-teal-300" />
+                  <div key={label} className="flex items-center gap-2 text-sm font-medium text-navy-200">
+                    <Icon size={16} className="text-teal-300" />
                     {label}
                   </div>
                 ))}

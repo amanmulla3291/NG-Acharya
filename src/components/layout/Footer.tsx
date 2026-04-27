@@ -39,16 +39,16 @@ export default function Footer() {
         <div className="flex">
           <div className="animate-marquee flex gap-16 whitespace-nowrap text-sm font-medium">
             {[
-              '🎓 Admission Open 2025-26 — Apply Now',
-              '📢 NAAC Peer Team Visit — 22-23 Feb 2025',
-              '🏆 100% Placement — B.Sc. IT 2024 Batch',
-              '📚 Certificate Courses — Registration Open',
-              '🎉 Kaleidoscope 2025 — 18-20 September',
-              '🎓 Admission Open 2025-26 — Apply Now',
-              '📢 NAAC Peer Team Visit — 22-23 Feb 2025',
-              '🏆 100% Placement — B.Sc. IT 2024 Batch',
-              '📚 Certificate Courses — Registration Open',
-              '🎉 Kaleidoscope 2025 — 18-20 September',
+              '🎓 Admission Open 2025-26 — Apply Online Now',
+              '📢 NAAC Peer Team Visit — A+ Grade Preparation',
+              '🏆 Best College Awardee — University of Mumbai',
+              '📻 Acharya 90 FM — Mumbai\'s Leading Community Radio',
+              '🔬 Recognized Ph.D. Research Centre in Chemistry & Commerce',
+              '🎓 Admission Open 2025-26 — Apply Online Now',
+              '📢 NAAC Peer Team Visit — A+ Grade Preparation',
+              '🏆 Best College Awardee — University of Mumbai',
+              '📻 Acharya 90 FM — Mumbai\'s Leading Community Radio',
+              '🔬 Recognized Ph.D. Research Centre in Chemistry & Commerce',
             ].map((item, i) => (
               <span key={i}>{item}</span>
             ))}
@@ -74,27 +74,27 @@ export default function Footer() {
             </Link>
 
             <p className="text-navy-300 text-sm leading-relaxed mb-6 max-w-sm">
-              Established in 1964, NAAC 'A' Grade accredited institution in Chembur, Mumbai — nurturing
-              6,000+ students across 25+ programmes with excellence, integrity, and innovation.
+              Established in 1978, NAAC 'A' Grade accredited institution in Chembur, Mumbai — nurturing
+              8,000+ students across various academic programmes with excellence, integrity, and innovation.
             </p>
 
             {/* Contact */}
             <div className="space-y-3 text-sm">
               <div className="flex gap-3 text-navy-300">
                 <MapPin size={16} className="flex-shrink-0 text-teal-400 mt-0.5" />
-                <span>Plot No. 2, Govardhan Das Colony, Chembur, Mumbai – 400 071</span>
+                <span>Shri. N.G. Acharya Marg, Chembur, Mumbai 400 071</span>
               </div>
-              <a href="tel:+912225224175" className="flex gap-3 text-navy-300 hover:text-teal-400 transition-colors">
+              <a href="tel:02225218797" className="flex gap-3 text-navy-300 hover:text-teal-400 transition-colors">
                 <Phone size={16} className="flex-shrink-0 text-teal-400 mt-0.5" />
-                +91 22 2522 4175 / 2522 6149
+                022-25218797 / 022-25217344
               </a>
-              <a href="mailto:principal@ngacharya.edu.in" className="flex gap-3 text-navy-300 hover:text-teal-400 transition-colors">
+              <a href="mailto:office@acharyamarathecollege.in" className="flex gap-3 text-navy-300 hover:text-teal-400 transition-colors">
                 <Mail size={16} className="flex-shrink-0 text-teal-400 mt-0.5" />
-                principal@ngacharya.edu.in
+                office@acharyamarathecollege.in
               </a>
-              <a href="https://ngacharya.edu.in" className="flex gap-3 text-navy-300 hover:text-teal-400 transition-colors">
+              <a href="https://acharyamarathecollege.in" target="_blank" rel="noopener noreferrer" className="flex gap-3 text-navy-300 hover:text-teal-400 transition-colors">
                 <Globe size={16} className="flex-shrink-0 text-teal-400 mt-0.5" />
-                ngacharya.edu.in
+                acharyamarathecollege.in
               </a>
             </div>
 

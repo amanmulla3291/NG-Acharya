@@ -28,7 +28,7 @@ export interface Course {
   admissionOpen: boolean;
 }
 
-export type NoticeCategory = 'All' | 'Admission' | 'Examination' | 'Result' | 'General' | 'Scholarship' | 'Event';
+export type NoticeCategory = 'All' | 'Admission' | 'Academic' | 'Examination' | 'Result' | 'General' | 'Scholarship' | 'Event';
 
 export interface Notice {
   id: number;
@@ -101,7 +101,7 @@ export interface InfrastructureItem {
   id: number;
   slug: string;
   name: string;
-  category: 'Library' | 'Sports' | 'IT' | 'Labs' | 'Auditorium' | 'Canteen' | 'Other';
+  category: 'Library' | 'Sports' | 'IT' | 'Labs' | 'Auditorium' | 'Canteen' | 'Media' | 'Environment' | 'Other';
   description: string;
   area?: string;              // e.g. "5000 sq. ft."
   capacity?: number;

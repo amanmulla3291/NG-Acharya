@@ -48,7 +48,7 @@ export default function ContactPage() {
               Campus Address
             </h3>
             <p className="text-gray-700 text-sm leading-relaxed">
-              Plot No. 2, Govardhan Das Colony<br />
+              Shri. N.G. Acharya Marg,<br />
               Chembur, Mumbai – 400 071<br />
               Maharashtra, India
             </p>
@@ -63,11 +63,11 @@ export default function ContactPage() {
               Phone
             </h3>
             <div className="space-y-2">
-              <a href="tel:+912225224175" className="block text-teal-600 hover:text-teal-700 font-medium text-sm">
-                +91 22 2522 4175
+              <a href="tel:02225218797" className="block text-teal-600 hover:text-teal-700 font-medium text-sm">
+                022-25218797
               </a>
-              <a href="tel:+912225226149" className="block text-teal-600 hover:text-teal-700 font-medium text-sm">
-                +91 22 2522 6149
+              <a href="tel:02225217344" className="block text-teal-600 hover:text-teal-700 font-medium text-sm">
+                022-25217344
               </a>
             </div>
           </div>
@@ -81,11 +81,11 @@ export default function ContactPage() {
               Email
             </h3>
             <div className="space-y-2">
-              <a href="mailto:principal@ngacharya.edu.in" className="block text-teal-600 hover:text-teal-700 font-medium text-sm break-all">
-                principal@ngacharya.edu.in
+              <a href="mailto:office@acharyamarathecollege.in" className="block text-teal-600 hover:text-teal-700 font-medium text-sm break-all">
+                office@acharyamarathecollege.in
               </a>
-              <a href="mailto:admissions@ngacharya.edu.in" className="block text-teal-600 hover:text-teal-700 font-medium text-sm break-all">
-                admissions@ngacharya.edu.in
+              <a href="mailto:principal@acharyamarathecollege.in" className="block text-teal-600 hover:text-teal-700 font-medium text-sm break-all">
+                principal@acharyamarathecollege.in
               </a>
             </div>
           </div>

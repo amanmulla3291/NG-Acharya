@@ -19,12 +19,12 @@ const navItems: NavItem[] = [
     label: 'About Us',
     href: '/about',
     children: [
+      { label: 'College Overview', href: '/about', description: 'Legacy of 45+ years' },
       { label: 'Our Inspiration', href: '/about/inspiration', description: 'The vision that founded our institution' },
       { label: 'Our Founders', href: '/about/founders', description: 'Shri N. G. Acharya & D. K. Marathe' },
       { label: 'Governing Council', href: '/about/governing-council', description: 'The guiding body of the college' },
       { label: "General Secretary's Message", href: '/about/secretary-message', description: 'A message from our leadership' },
       { label: "Principal's Desk", href: '/about/principal', description: 'Vision for the academic year' },
-      { label: 'Institutional Organogram', href: '/about/organogram', description: 'College structure and governance' },
     ],
   },
   {
@@ -107,13 +107,13 @@ export default function Navbar() {
       <div className="bg-navy-900 text-white text-xs hidden md:block">
         <div className="max-w-7xl mx-auto px-4 py-2 flex justify-between items-center">
           <div className="flex gap-6">
-            <a href="tel:+912225224175" className="flex items-center gap-1.5 hover:text-teal-400 transition-colors">
+            <a href="tel:02225218797" className="flex items-center gap-1.5 hover:text-teal-400 transition-colors">
               <Phone size={11} />
-              +91 22 2522 4175
+              022-25218797
             </a>
-            <a href="mailto:principal@ngacharya.edu.in" className="flex items-center gap-1.5 hover:text-teal-400 transition-colors">
+            <a href="mailto:office@acharyamarathecollege.in" className="flex items-center gap-1.5 hover:text-teal-400 transition-colors">
               <Mail size={11} />
-              principal@ngacharya.edu.in
+              office@acharyamarathecollege.in
             </a>
           </div>
           <div className="flex items-center gap-4">
