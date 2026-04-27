@@ -1,0 +1,194 @@
+@import "tailwindcss";
+
+@theme {
+  /* ── Brand Colours ── */
+  --color-navy-50:  #e8eef7;
+  --color-navy-100: #c6d4ea;
+  --color-navy-200: #9fb6d9;
+  --color-navy-300: #7898c8;
+  --color-navy-400: #567fba;
+  --color-navy-500: #3467ae;
+  --color-navy-600: #1d50a0;
+  --color-navy-700: #003087;  /* Primary */
+  --color-navy-800: #002572;
+  --color-navy-900: #001a5c;
+
+  --color-teal-50:  #e0f7ef;
+  --color-teal-100: #b3ecd7;
+  --color-teal-200: #80e0bc;
+  --color-teal-300: #4dd4a1;
+  --color-teal-400: #26ca8a;
+  --color-teal-500: #00A86B;  /* Accent */
+  --color-teal-600: #009960;
+  --color-teal-700: #008752;
+  --color-teal-800: #007645;
+  --color-teal-900: #005730;
+
+  --color-gold-50:  #fff8e1;
+  --color-gold-100: #ffecb3;
+  --color-gold-200: #ffe082;
+  --color-gold-300: #ffd54f;
+  --color-gold-400: #ffca28;
+  --color-gold-500: #FFC107;  /* NAAC Gold */
+  --color-gold-600: #ffb300;
+  --color-gold-700: #ffa000;
+  --color-gold-800: #ff8f00;
+  --color-gold-900: #ff6f00;
+
+  /* ── Typography ── */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-sans: 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'DM Mono', monospace;
+
+  /* ── Spacing ── */
+  --spacing-18: 4.5rem;
+  --spacing-88: 22rem;
+  --spacing-112: 28rem;
+  --spacing-128: 32rem;
+
+  /* ── Border Radius ── */
+  --radius-2xl: 1rem;
+  --radius-3xl: 1.5rem;
+
+  /* ── Shadows ── */
+  --shadow-navy: 0 4px 32px 0 rgba(0, 48, 135, 0.15);
+  --shadow-card: 0 2px 16px 0 rgba(0, 0, 0, 0.08);
+  --shadow-hover: 0 8px 40px 0 rgba(0, 48, 135, 0.18);
+}
+
+/* ── Base Styles ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #f8f9fc;
+  color: #1a1f2e;
+  line-height: 1.6;
+}
+
+/* ── Selection ── */
+::selection {
+  background-color: var(--color-navy-700);
+  color: white;
+}
+
+/* ── Custom Scrollbar ── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb {
+  background: var(--color-navy-300);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--color-navy-500); }
+
+/* ── Focus styles ── */
+:focus-visible {
+  outline: 2px solid var(--color-teal-500);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Utility classes ── */
+.font-display { font-family: var(--font-display); }
+.font-sans-custom { font-family: var(--font-sans); }
+
+.text-balance { text-wrap: balance; }
+
+/* ── Gradient utilities ── */
+.bg-hero-gradient {
+  background: linear-gradient(
+    135deg,
+    var(--color-navy-900) 0%,
+    var(--color-navy-700) 45%,
+    var(--color-teal-700) 100%
+  );
+}
+
+.bg-section-gradient {
+  background: linear-gradient(180deg, #f8f9fc 0%, #eef2f8 100%);
+}
+
+/* ── Nav underline animation ── */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--color-teal-500);
+  transition: width 0.25s ease;
+}
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* ── Card hover lift ── */
+.card-hover {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.card-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* ── Marquee / ticker ── */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+/* ── Stats counter pulse ── */
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.count-up { animation: count-up 0.6s ease forwards; }
+
+/* ── Skeleton shimmer ── */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.skeleton {
+  background: linear-gradient(90deg, #e2e8f0 25%, #f1f5f9 50%, #e2e8f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: 4px;
+}
+
+/* ── Badge pulse (live/new) ── */
+@keyframes badge-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+.badge-pulse { animation: badge-pulse 2s ease-in-out infinite; }
+
+/* ── Dark mode ── */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #0d1117;
+    color: #e6eaf3;
+  }
+}
+
+/* Dark mode class override */
+.dark body {
+  background-color: #0d1117;
+  color: #e6eaf3;
+}
