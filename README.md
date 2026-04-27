@@ -68,6 +68,11 @@ A production-ready React 19 + Vite 8 frontend for N. G. Acharya & D. K. Marathe 
 - Optimized loading on slow networks
 - Skeleton loading states
 
+✅ **Social Connectivity**
+- Floating social media sidebar with glassmorphism
+- Hover effects and tooltips for quick access
+- Seamless integration with major social platforms
+
 ✅ **Performance & SEO**
 - Code splitting & lazy loading
 - Meta tags per page
@@ -115,7 +120,7 @@ The optimized production build will be in the `dist/` folder.
 src/
 ├── app/                    # Route components
 ├── components/
-│   ├── layout/            # Navbar, Footer, Breadcrumb, PageLayout
+│   ├── layout/            # Navbar, Footer, Breadcrumb, PageLayout, SocialSidebar
 │   ├── cards/             # CourseCard, NoticeCard, EventCard
 │   ├── sections/          # Reusable sections (coming soon)
 │   └── ui/                # shadcn/ui components
