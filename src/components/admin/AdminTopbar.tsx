@@ -79,7 +79,7 @@ export default function AdminTopbar() {
         
         <DropdownMenu>
           <DropdownMenuTrigger 
-            render={(props) => (
+            render={(props: React.HTMLAttributes<HTMLElement>) => (
               <button {...props} className="flex items-center gap-3 p-1.5 pr-3 rounded-2xl hover:bg-slate-50 transition-all border border-transparent hover:border-slate-100 group focus:outline-none">
                 <Avatar className="h-9 w-9 ring-2 ring-white shadow-md group-hover:ring-blue-50 transition-all">
                   <AvatarFallback className="bg-gradient-to-br from-blue-600 to-blue-800 text-white font-black text-xs">

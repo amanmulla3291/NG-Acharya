@@ -140,7 +140,7 @@ export default function AdminSidebar() {
         <DropdownMenu>
           <DropdownMenuTrigger 
             nativeButton={false}
-            render={(props) => (
+            render={(props: React.HTMLAttributes<HTMLElement>) => (
               <div {...props} className="flex items-center gap-3 overflow-hidden cursor-pointer hover:bg-gray-50 p-2 rounded-xl transition-colors">
                 <Avatar className="h-10 w-10">
                   <AvatarFallback className="bg-blue-100 text-blue-600 font-bold">
@@ -155,6 +155,7 @@ export default function AdminSidebar() {
               </div>
             )}
           />
+
 
           <DropdownMenuContent side="top" className="w-56" align="end" sideOffset={10}>
             <DropdownMenuLabel>My Account</DropdownMenuLabel>

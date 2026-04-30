@@ -22,7 +22,7 @@ function DropdownMenuTrigger({
 }: useRender.ComponentProps<typeof MenuPrimitive.Trigger> &
   MenuPrimitive.Trigger.Props) {
   return useRender({
-    defaultTagName: MenuPrimitive.Trigger,
+    defaultTagName: MenuPrimitive.Trigger as any,
     props: mergeProps(
       {
         "data-slot": "dropdown-menu-trigger",
@@ -100,7 +100,7 @@ function DropdownMenuItem({
     variant?: "default" | "destructive"
   }) {
   return useRender({
-    defaultTagName: MenuPrimitive.Item,
+    defaultTagName: MenuPrimitive.Item as any,
     props: mergeProps(
       {
         className: cn(
