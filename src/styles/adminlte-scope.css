@@ -1,0 +1,14 @@
+/*
+ * Scoped AdminLTE + Bootstrap CSS
+ * Only applies inside elements with class "adminlte-scope"
+ * This prevents Bootstrap from leaking into Tailwind public pages
+ */
+
+/* Bootstrap 5 core */
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+/* AdminLTE v4 */
+@import 'admin-lte/dist/css/adminlte.min.css';
+
+/* Bootstrap Icons */
+@import 'bootstrap-icons/font/bootstrap-icons.css';

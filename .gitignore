@@ -39,5 +39,3 @@ lerna-debug.log*
 
 # Vite
 .vite
-
-codebase_graph.md
