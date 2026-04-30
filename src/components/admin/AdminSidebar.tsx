@@ -1,89 +1,180 @@
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { useAuth } from '@/context/AuthContext';
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+} from '@/components/ui/sidebar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { 
+  DropdownMenu, 
+  DropdownMenuTrigger, 
+  DropdownMenuContent, 
+  DropdownMenuItem, 
+  DropdownMenuLabel, 
+  DropdownMenuSeparator 
+} from '@/components/ui/dropdown-menu';
+import { 
+  LogOut, 
+  Settings, 
+  User, 
+  LayoutDashboard, 
+  Megaphone, 
+  Calendar, 
+  BookOpen, 
+  Network, 
+  Building2, 
+  Users,
+  ExternalLink,
+  ChevronUp
+} from 'lucide-react';
 
-const menuItems = [
-  { to: '/admin', icon: 'bi-speedometer2', label: 'Dashboard', end: true },
-  { to: '/admin/notices', icon: 'bi-megaphone', label: 'Notices' },
-  { to: '/admin/events', icon: 'bi-calendar-event', label: 'Events' },
-  { to: '/admin/courses', icon: 'bi-book', label: 'Courses' },
-  { to: '/admin/departments', icon: 'bi-building', label: 'Departments' },
-  { to: '/admin/staff', icon: 'bi-people', label: 'Staff' },
-  { to: '/admin/infrastructure', icon: 'bi-houses', label: 'Infrastructure' },
+const navigateItems = [
+  { to: '/admin', icon: LayoutDashboard, label: 'Dashboard', end: true },
+  { to: '/admin/notices', icon: Megaphone, label: 'Notices & Announcements' },
+  { to: '/admin/events', icon: Calendar, label: 'Events & Media' },
+  { to: '/admin/courses', icon: BookOpen, label: 'Courses' },
+  { to: '/admin/departments', icon: Network, label: 'Departments' },
+  { to: '/admin/infrastructure', icon: Building2, label: 'Infrastructure' },
+  { to: '/admin/staff', icon: Users, label: 'Faculty & Staff' },
 ];
 
 export default function AdminSidebar() {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
+  };
+
   return (
-    <aside className="w-64 bg-navy-900 text-white flex flex-col h-screen flex-shrink-0">
-      {/* Brand */}
-      <div className="h-16 flex items-center px-6 border-b border-navy-800">
-        <a href="#/admin" className="text-xl font-bold tracking-wider text-white hover:text-white flex items-center gap-2">
-          <div className="w-8 h-8 bg-teal-500 rounded-lg flex items-center justify-center">
-            <span className="text-navy-900 font-bold text-sm">NG</span>
+    <Sidebar className="border-r border-slate-200/60 bg-white/80 backdrop-blur-xl">
+      <SidebarHeader className="h-16 flex items-center justify-center border-b border-slate-100 px-6">
+        <a href="#/admin" className="text-sm font-bold tracking-tight text-navy-900 flex items-center gap-3 w-full">
+          <div className="p-1.5 bg-blue-50 rounded-lg">
+            <img src="/logo.png" alt="AMC Logo" className="w-6 h-6 object-contain" />
           </div>
-          <span className="font-light">Admin</span>
+          <span className="leading-tight font-black uppercase tracking-wider text-[11px]">
+            Admin Portal
+          </span>
         </a>
-      </div>
+      </SidebarHeader>
 
-      {/* Sidebar Menu */}
-      <div className="flex-1 overflow-y-auto py-4">
-        <nav className="px-3">
-          {/* Menu Header */}
-          <div className="px-3 mb-2 text-xs font-semibold text-navy-300 uppercase tracking-wider">
-            Content Management
-          </div>
+      <SidebarContent className="custom-scrollbar py-6 px-3">
+        <SidebarGroup>
+          <SidebarGroupLabel className="text-navy-900/40 font-black uppercase tracking-widest text-[10px] mb-4 px-4">Navigation</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu className="gap-1">
+              {navigateItems.map((item) => (
+                <SidebarMenuItem key={item.to}>
+                  <NavLink
+                    to={item.to}
+                    end={item.end}
+                    className={({ isActive }) =>
+                      `group flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-200 ${
+                        isActive 
+                          ? 'bg-navy-900 text-white shadow-lg shadow-navy-900/20' 
+                          : 'text-slate-500 hover:bg-slate-100 hover:text-navy-900'
+                      }`
+                    }
+                  >
+                    <item.icon className="h-5 w-5 shrink-0" />
+                    <span className="text-sm font-bold tracking-tight">{item.label}</span>
+                  </NavLink>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
 
-          <ul className="space-y-1 mb-8">
-            {menuItems.map((item) => (
-              <li key={item.to}>
+        <SidebarGroup>
+          <SidebarGroupLabel className="text-navy-900/40 font-black uppercase tracking-widest text-[10px] mb-4 mt-8 px-4">Management</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu className="gap-1">
+              <SidebarMenuItem>
                 <NavLink
-                  to={item.to}
-                  end={item.end}
+                  to="/admin/settings"
                   className={({ isActive }) =>
-                    `flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors ${
+                    `group flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-200 ${
                       isActive 
-                        ? 'bg-navy-800 text-white font-medium' 
-                        : 'text-navy-100 hover:bg-navy-800 hover:text-white'
+                        ? 'bg-navy-900 text-white shadow-lg shadow-navy-900/20' 
+                        : 'text-slate-500 hover:bg-slate-100 hover:text-navy-900'
                     }`
                   }
                 >
-                  <i className={`bi ${item.icon} text-lg`} />
-                  <span>{item.label}</span>
+                  <Settings className="h-5 w-5 shrink-0" />
+                  <span className="text-sm font-bold tracking-tight">System Settings</span>
                 </NavLink>
-              </li>
-            ))}
-          </ul>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
 
-          {/* Divider */}
-          <div className="px-3 mb-2 text-xs font-semibold text-navy-300 uppercase tracking-wider">
-            System
-          </div>
-          <ul className="space-y-1">
-            <li>
-              <NavLink
-                to="/admin/settings"
-                className={({ isActive }) =>
-                  `flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors ${
-                    isActive 
-                      ? 'bg-navy-800 text-white font-medium' 
-                      : 'text-navy-100 hover:bg-navy-800 hover:text-white'
-                  }`
-                }
-              >
-                <i className="bi bi-gear text-lg" />
-                <span>Settings</span>
-              </NavLink>
-            </li>
-            <li>
-              <a 
-                href="#/" 
-                className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-teal-400 hover:bg-navy-800 transition-colors mt-4 border border-navy-800"
-              >
-                <i className="bi bi-arrow-left-circle text-lg" />
-                <span>Back to Site</span>
-              </a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-    </aside>
+        <SidebarGroup>
+          <SidebarGroupLabel className="text-navy-900/40 font-black uppercase tracking-widest text-[10px] mb-4 mt-8 px-4">External</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu className="gap-1">
+              <SidebarMenuItem>
+                <a 
+                  href="#/" 
+                  className="group flex items-center gap-3 px-4 py-2.5 rounded-xl transition-all duration-200 text-slate-500 hover:bg-slate-100 hover:text-navy-900"
+                >
+                  <ExternalLink className="h-5 w-5 shrink-0" />
+                  <span className="text-sm font-bold tracking-tight">Live Website</span>
+                </a>
+              </SidebarMenuItem>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+
+      <SidebarFooter className="border-t border-gray-200 p-4">
+        <DropdownMenu>
+          <DropdownMenuTrigger 
+            nativeButton={false}
+            render={(props) => (
+              <div {...props} className="flex items-center gap-3 overflow-hidden cursor-pointer hover:bg-gray-50 p-2 rounded-xl transition-colors">
+                <Avatar className="h-10 w-10">
+                  <AvatarFallback className="bg-blue-100 text-blue-600 font-bold">
+                    {user?.name?.charAt(0).toUpperCase() || 'A'}
+                  </AvatarFallback>
+                </Avatar>
+                <div className="overflow-hidden flex-1 text-left">
+                  <div className="text-sm font-bold text-gray-900 truncate">{user?.name || 'Admin User'}</div>
+                  <div className="text-xs text-gray-500 truncate">{user?.email || 'admin@example.com'}</div>
+                </div>
+                <ChevronUp className="h-4 w-4 text-gray-400" />
+              </div>
+            )}
+          />
+
+          <DropdownMenuContent side="top" className="w-56" align="end" sideOffset={10}>
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem className="cursor-pointer">
+              <User className="mr-2 h-4 w-4" />
+              <span>Profile</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem className="cursor-pointer">
+              <Settings className="mr-2 h-4 w-4" />
+              <span>Settings</span>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem className="cursor-pointer text-red-600 focus:text-red-600" onClick={handleLogout}>
+              <LogOut className="mr-2 h-4 w-4" />
+              <span>Log out</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </SidebarFooter>
+    </Sidebar>
   );
 }

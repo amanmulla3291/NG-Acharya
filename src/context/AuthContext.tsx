@@ -1,11 +1,11 @@
 import { createContext, useContext, useState, useCallback, type ReactNode } from 'react';
 
-export type UserRole = 'student' | 'staff' | 'admin';
+export type UserRole = 'admin';
 
 interface AuthContextType {
   isAuthenticated: boolean;
   user: User | null;
-  login: (email: string, password: string) => Promise<boolean>;
+  login: (email: string, password: string) => Promise<{ success: boolean; role?: UserRole }>;
   logout: () => void;
 }
 
@@ -19,15 +19,11 @@ interface User {
 const AuthContext = createContext<AuthContextType | null>(null);
 
 /**
- * Mock admin credentials for development.
- * Any email containing "admin" gets admin role.
- * All others get student role.
+ * Mock accounts for development.
  */
-function resolveRole(email: string): UserRole {
-  if (email.toLowerCase().includes('admin')) return 'admin';
-  if (email.toLowerCase().includes('staff')) return 'staff';
-  return 'student';
-}
+const MOCK_ACCOUNTS: Record<string, { name: string, role: UserRole, password: string }> = {
+  'admin@college.com': { name: 'System Admin', role: 'admin', password: 'admin123' },
+};
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(() => {
@@ -37,18 +33,25 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const isAuthenticated = user !== null;
 
-  const login = useCallback(async (email: string, _password: string): Promise<boolean> => {
-    // TODO: Replace with real API call
-    const role = resolveRole(email);
-    const mockUser: User = {
-      id: crypto.randomUUID(),
-      name: email.split('@')[0],
-      email,
-      role,
-    };
-    setUser(mockUser);
-    localStorage.setItem('auth_user', JSON.stringify(mockUser));
-    return true;
+  const login = useCallback(async (email: string, password: string): Promise<{ success: boolean; role?: UserRole }> => {
+    // Simulate network delay
+    await new Promise(r => setTimeout(r, 800));
+
+    const account = MOCK_ACCOUNTS[email.toLowerCase()];
+    
+    if (account && account.password === password) {
+      const mockUser: User = {
+        id: crypto.randomUUID(),
+        name: account.name,
+        email,
+        role: account.role,
+      };
+      setUser(mockUser);
+      localStorage.setItem('auth_user', JSON.stringify(mockUser));
+      return { success: true, role: account.role };
+    }
+
+    return { success: false };
   }, []);
 
   const logout = useCallback(() => {

@@ -22,6 +22,6 @@ export const fetchStaff = fetchStaffMembers;
 
 export async function fetchStaffBySlug(slug: string): Promise<StaffMember | undefined> {
   const all = await fetchStaffMembers();
-  return all.find(s => s.id.toString() === slug || s.name.toLowerCase().replace(/\s+/g, '-') === slug);
+  return all.find(s => s.slug === slug || s.id.toString() === slug);
 }
 

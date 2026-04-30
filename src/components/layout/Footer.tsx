@@ -14,6 +14,7 @@ const footerLinks = {
     { label: 'Notices & Circulars', href: '/notices' },
     { label: 'News & Events', href: '/events' },
     { label: 'Placements', href: '/placements' },
+    { label: 'Staff Directory', href: '/staffs' },
     { label: 'Student Zone', href: '/student-zone' },
     { label: 'Fee Structure', href: '/fee-structure' },
     { label: 'Contact Us', href: '/contact' },
@@ -62,8 +63,8 @@ export default function Footer() {
           {/* ── Brand column ── */}
           <div className="lg:col-span-2">
             <Link to="/" className="flex items-center gap-3 mb-5">
-              <div className="w-12 h-12 rounded-xl bg-teal-600 flex items-center justify-center">
-                <GraduationCap size={24} className="text-white" />
+              <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center overflow-hidden border border-navy-800">
+                <img src="/logo.png" alt="AMC Logo" className="w-10 h-10 object-contain" />
               </div>
               <div>
                 <p className="font-display font-bold text-base leading-tight">

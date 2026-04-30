@@ -585,7 +585,7 @@ export default function HomePage() {
               {/* Pulsing Background Glow */}
               <div className="absolute inset-0 bg-teal-400 rounded-xl blur-md opacity-40 group-hover:opacity-100 transition-opacity duration-500 animate-pulse" />
               <Link
-                to="/courses"
+                to="/admissions"
                 className="relative flex items-center justify-center gap-3 px-8 py-4 bg-teal-500 text-white font-bold rounded-xl hover:bg-teal-400 transition-all shadow-xl hover:shadow-teal-500/25 scale-100 hover:scale-105"
               >
                 Apply Now

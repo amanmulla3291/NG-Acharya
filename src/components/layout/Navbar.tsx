@@ -3,8 +3,9 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Menu, X, ChevronDown, Phone, Mail, Search,
-  GraduationCap
+  LogIn, User, LogOut, LayoutDashboard
 } from 'lucide-react';
+import { useAuth } from '@/context/AuthContext';
 import { cn } from '@/utils/cn';
 
 interface NavItem {
@@ -25,6 +26,7 @@ const navItems: NavItem[] = [
       { label: 'Governing Council', href: '/about/governing-council', description: 'The guiding body of the college' },
       { label: "General Secretary's Message", href: '/about/secretary-message', description: 'A message from our leadership' },
       { label: "Principal's Desk", href: '/about/principal', description: 'Vision for the academic year' },
+      { label: "Faculty Directory", href: '/staffs', description: 'Meet our dedicated educators' },
     ],
   },
   {
@@ -85,6 +87,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [scrolled, setScrolled] = useState(false);
+  const { isAuthenticated, user, logout } = useAuth();
   const location = useLocation();
   const navRef = useRef<HTMLElement>(null);
 
@@ -125,8 +128,33 @@ export default function Navbar() {
             </a>
           </div>
           <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1.5 text-gold-50">
-              <span className="w-1.5 h-1.5 rounded-full bg-gold-400 badge-pulse" />
+            {isAuthenticated ? (
+              <div className="flex items-center gap-3">
+                <Link 
+                  to="/admin" 
+                  className="flex items-center gap-1.5 text-teal-400 hover:text-teal-300 transition-colors font-bold"
+                >
+                  <LayoutDashboard size={12} />
+                  Admin Portal
+                </Link>
+                <div className="w-px h-3 bg-navy-50/30" />
+                <button 
+                  onClick={logout}
+                  className="flex items-center gap-1.5 text-red-400 hover:text-red-300 transition-colors"
+                >
+                  <LogOut size={12} />
+                  Sign Out
+                </button>
+              </div>
+            ) : (
+              <Link to="/login" className="flex items-center gap-1.5 text-navy-50 hover:text-teal-300 transition-colors">
+                <LogIn size={12} />
+                Admin Login
+              </Link>
+            )}
+            <div className="w-px h-3 bg-navy-50/30" />
+            <span className="flex items-center gap-1.5 text-gold-50 text-[10px] md:text-xs">
+              <span className="w-1.5 h-1.5 rounded-full bg-gold-400 animate-pulse" />
               NAAC Accredited — 'A' Grade
             </span>
             <div className="w-px h-3 bg-navy-50/30" />
@@ -150,18 +178,20 @@ export default function Navbar() {
         <div className="max-w-[1440px] mx-auto px-4 xl:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
 
-            {/* ── Logo ── */}
             <div className="flex items-center min-w-0 flex-shrink-0 mr-2 xl:mr-4">
-              <Link to="/" className="flex flex-col justify-center group" aria-label="Home">
-                <p className="text-[#e31e24] text-[8px] xl:text-[9px] font-bold tracking-wider uppercase leading-tight">
-                  Chembur Trombay Education Society's
-                </p>
-                <h1 className="font-display font-black text-navy-900 text-[14px] xl:text-[17px] uppercase leading-tight tracking-tight group-hover:text-teal-700 transition-colors">
-                  N.G. Acharya & D.K. Marathe
-                </h1>
-                <p className="text-[10px] xl:text-[11px] text-gray-500 font-semibold leading-tight">
-                  College of Arts, Science & Commerce
-                </p>
+              <Link to="/" className="flex items-center gap-3 group" aria-label="Home">
+                <img src="/logo.png" alt="AMC Logo" className="w-10 h-10 md:w-12 md:h-12 object-contain" />
+                <div className="flex flex-col justify-center">
+                  <p className="text-[#e31e24] text-[8px] xl:text-[9px] font-bold tracking-wider uppercase leading-tight">
+                    Chembur Trombay Education Society's
+                  </p>
+                  <h1 className="font-display font-black text-navy-900 text-[14px] xl:text-[17px] uppercase leading-tight tracking-tight group-hover:text-teal-700 transition-colors">
+                    N.G. Acharya & D.K. Marathe
+                  </h1>
+                  <p className="text-[10px] xl:text-[11px] text-gray-500 font-semibold leading-tight">
+                    College of Arts, Science & Commerce
+                  </p>
+                </div>
               </Link>
             </div>
 
@@ -249,7 +279,7 @@ export default function Navbar() {
               </div>
 
               <Link
-                to="/courses"
+                to="/admissions"
                 className="hidden md:inline-flex items-center justify-center px-5 py-2 bg-navy-900 text-white text-[13px] font-bold tracking-wide uppercase rounded-full hover:bg-navy-800 transition-colors shadow-sm ring-1 ring-navy-900/10 hover:shadow-md whitespace-nowrap"
               >
                 Apply Now
@@ -283,7 +313,7 @@ export default function Navbar() {
                 ))}
                 <div className="mt-5 pt-5 border-t border-navy-50 mb-4">
                   <Link
-                    to="/courses"
+                    to="/admissions"
                     className="block w-full text-center px-4 py-3.5 bg-teal-600 text-white text-sm font-semibold rounded-xl hover:bg-teal-700 transition-colors shadow-sm"
                   >
                     Apply Now — 2025-26 Admissions Open

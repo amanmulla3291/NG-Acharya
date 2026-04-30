@@ -102,9 +102,12 @@ export default function CourseDetailPage() {
               </div>
 
               {course.admissionOpen ? (
-                <button className="w-full bg-teal-500 text-white font-semibold py-3 rounded-lg hover:bg-teal-600 transition-all mb-3">
+                <Link 
+                  to="/admissions"
+                  className="block text-center w-full bg-teal-500 text-white font-semibold py-3 rounded-lg hover:bg-teal-600 transition-all mb-3"
+                >
                   Apply Now
-                </button>
+                </Link>
               ) : (
                 <div className="w-full bg-gray-500 text-white font-semibold py-3 rounded-lg text-center mb-3 flex items-center justify-center gap-2">
                   <AlertCircle size={16} />

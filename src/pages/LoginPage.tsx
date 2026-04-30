@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 
@@ -16,10 +16,13 @@ export default function LoginPage() {
   const from = (location.state as { from?: { pathname: string } })?.from?.pathname || '/';
 
   // If already logged in, redirect away
-  if (isAuthenticated) {
-    navigate(from, { replace: true });
-    return null;
-  }
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate(from, { replace: true });
+    }
+  }, [isAuthenticated, navigate, from]);
+
+  if (isAuthenticated) return null;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -27,9 +30,13 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
-      const success = await login(email, password);
-      if (success) {
-        navigate(from, { replace: true });
+      const result = await login(email, password);
+      if (result.success) {
+        if (from === '/' && result.role === 'admin') {
+          navigate('/admin', { replace: true });
+        } else {
+          navigate(from, { replace: true });
+        }
       } else {
         setError('Invalid email or password.');
       }
@@ -47,10 +54,8 @@ export default function LoginPage() {
         <div className="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
           {/* Header */}
           <div className="text-center mb-8">
-            <div className="w-16 h-16 bg-gradient-to-br from-teal-500 to-teal-700 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-              <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
+            <div className="w-20 h-20 bg-white rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-xl border border-gray-100 overflow-hidden p-2">
+              <img src="/logo.png" alt="AMC Logo" className="w-full h-full object-contain" />
             </div>
             <h1 className="text-2xl font-display font-bold text-navy-900">
               Welcome Back
@@ -117,12 +122,15 @@ export default function LoginPage() {
           </form>
 
           {/* Footer hint */}
-          <div className="text-center text-xs text-gray-400 mt-6 space-y-1">
-            <p>For demo: enter any email &amp; password to sign in.</p>
-            <p className="text-gray-300">
-              Use <strong className="text-gray-500">admin@</strong> for admin access ·{' '}
-              <strong className="text-gray-500">staff@</strong> for staff access
-            </p>
+          <div className="text-center text-xs text-gray-400 mt-6 space-y-2">
+            <p className="font-bold text-gray-500">Demo Credentials:</p>
+            <div className="flex justify-center">
+              <div className="bg-gray-50 p-2 px-4 rounded-lg border border-gray-100 max-w-xs">
+                <p className="text-navy-900 font-black mb-1">Admin Portal</p>
+                <p className="font-medium">admin@college.com</p>
+                <p className="text-teal-600 font-bold">admin123</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -116,28 +116,13 @@ export default function AppRoutes() {
       <Route path="/alumni" element={<AlumniPage />} />
       <Route path="/gallery" element={<GalleryPage />} />
       <Route path="/contact" element={<ContactPage />} />
+      <Route path="/staffs" element={<StaffPage />} />
+      <Route path="/staffs/:slug" element={<StaffDetailPage />} />
 
-      {/* ─── Protected Routes (require login) ──────────────── */}
-      <Route
-        path="/student-zone"
-        element={<ProtectedRoute><StudentZonePage /></ProtectedRoute>}
-      />
-      <Route
-        path="/placements"
-        element={<ProtectedRoute><PlacementsPage /></ProtectedRoute>}
-      />
-      <Route
-        path="/fee-structure"
-        element={<ProtectedRoute><FeeStructurePage /></ProtectedRoute>}
-      />
-      <Route
-        path="/staffs"
-        element={<ProtectedRoute><StaffPage /></ProtectedRoute>}
-      />
-      <Route
-        path="/staffs/:slug"
-        element={<ProtectedRoute><StaffDetailPage /></ProtectedRoute>}
-      />
+      {/* ─── Public Informational Pages ─────────────────────── */}
+      <Route path="/student-zone" element={<StudentZonePage />} />
+      <Route path="/placements" element={<PlacementsPage />} />
+      <Route path="/fee-structure" element={<FeeStructurePage />} />
 
       {/* ─── Admin Routes (require admin role) ─────────────── */}
       <Route

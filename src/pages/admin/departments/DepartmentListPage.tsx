@@ -2,86 +2,136 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { departmentStore } from '@/lib/data/stores';
 import type { Department } from '@/types';
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Plus, Pencil, Trash2, Building2, User, Calendar, BookOpen } from 'lucide-react';
 
 export default function DepartmentListPage() {
   const [items, setItems] = useState<Department[]>(() => departmentStore.getAll());
 
   const handleDelete = (id: number) => {
-    if (window.confirm('Delete this department?')) {
+    if (window.confirm('Are you sure you want to delete this department? This action cannot be undone.')) {
       departmentStore.delete(id);
       setItems(departmentStore.getAll());
     }
   };
 
   return (
-    <>
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold text-navy-900">Departments</h1>
-        <Link to="/admin/departments/new" className="px-4 py-2 bg-teal-600 text-white rounded-lg font-medium hover:bg-teal-700 transition-colors flex items-center gap-2">
-          <i className="bi bi-plus-circle" /> Add Department
-        </Link>
+    <div className="space-y-10 pb-16">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+        <div className="space-y-1">
+          <h1 className="text-4xl font-black text-navy-900 tracking-tight">Institutional Departments</h1>
+          <p className="text-slate-400 font-bold uppercase tracking-[0.2em] text-[10px]">Academic units & administrative leadership registry</p>
+        </div>
+        <Button asChild className="bg-navy-900 hover:bg-blue-600 text-white shadow-2xl shadow-navy-900/10 font-black px-8 h-14 rounded-2xl transition-all duration-300">
+          <Link to="/admin/departments/new" className="flex items-center gap-3">
+            <Plus className="h-5 w-5" /> Initialize Department
+          </Link>
+        </Button>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full text-left whitespace-nowrap">
-            <thead>
-              <tr className="bg-gray-50 border-b border-gray-100">
-                <th className="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Department</th>
-                <th className="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Head</th>
-                <th className="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Established</th>
-                <th className="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Courses</th>
-                <th className="px-6 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider text-right">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-100">
-              {items.map((item) => (
-                <tr key={item.id} className="hover:bg-gray-50 transition-colors">
-                  <td className="px-6 py-4">
-                    <div className="font-semibold text-navy-900">{item.name}</div>
-                    {item.shortName && <div className="text-sm text-gray-500">{item.shortName}</div>}
-                  </td>
-                  <td className="px-6 py-4 text-gray-600">{item.headName}</td>
-                  <td className="px-6 py-4 text-gray-600">{item.established}</td>
-                  <td className="px-6 py-4">
-                    <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                      {item.courses.length}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4 text-right">
-                    <div className="flex items-center justify-end gap-2">
-                      <Link 
-                        to={`/admin/departments/${item.id}/edit`} 
-                        className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
-                        title="Edit"
-                      >
-                        <i className="bi bi-pencil" />
-                      </Link>
-                      <button 
-                        onClick={() => handleDelete(item.id)}
-                        className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
-                        title="Delete"
-                      >
-                        <i className="bi bi-trash" />
-                      </button>
-                    </div>
-                  </td>
+      <Card className="border-none shadow-[0_8px_30px_rgb(0,0,0,0.04)] bg-white overflow-hidden rounded-[2.5rem]">
+        <CardHeader className="px-10 py-8 border-b border-slate-50 bg-slate-50/30">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="h-10 w-10 rounded-2xl bg-indigo-600 flex items-center justify-center text-white shadow-lg shadow-indigo-600/20">
+                <Building2 className="h-5 w-5" />
+              </div>
+              <CardTitle className="text-xl font-black text-navy-900">Institutional Units</CardTitle>
+            </div>
+            <Badge variant="outline" className="bg-white border-slate-100 text-slate-400 font-black px-4 py-1.5 rounded-xl text-[10px] uppercase tracking-widest">
+              {items.length} ACTIVE DEPARTMENTS
+            </Badge>
+          </div>
+        </CardHeader>
+        <CardContent className="p-0">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left whitespace-nowrap">
+              <thead>
+                <tr className="border-b border-slate-50">
+                  <th className="px-10 py-5 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Unit Details</th>
+                  <th className="px-6 py-5 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Administration</th>
+                  <th className="px-6 py-5 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Academic Portfolio</th>
+                  <th className="px-10 py-5 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] text-right">Operations</th>
                 </tr>
-              ))}
-              {items.length === 0 && (
-                <tr>
-                  <td colSpan={5} className="px-6 py-8 text-center text-gray-500">
-                    No departments found.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-        <div className="px-6 py-4 border-t border-gray-100 bg-gray-50 text-sm text-gray-500">
-          Total: <span className="font-semibold text-gray-900">{items.length}</span> departments
-        </div>
-      </div>
-    </>
+              </thead>
+              <tbody className="divide-y divide-slate-50/50">
+                {items.map((item) => (
+                  <tr key={item.id} className="hover:bg-slate-50/50 transition-all duration-300 group cursor-default">
+                    <td className="px-10 py-6">
+                      <div className="flex items-center gap-4">
+                        <div className="h-14 w-14 rounded-2xl bg-navy-900/5 text-navy-900 flex items-center justify-center font-black shrink-0 transition-all duration-500 group-hover:scale-110 group-hover:bg-navy-900 group-hover:text-white shadow-sm">
+                          {item.shortName || item.name.charAt(0)}
+                        </div>
+                        <div className="min-w-0">
+                          <div className="font-black text-navy-900 group-hover:text-blue-600 transition-colors truncate text-base mb-0.5">{item.name}</div>
+                          <div className="text-[10px] text-slate-400 font-bold uppercase tracking-wider flex items-center gap-2 mt-0.5">
+                            <Calendar className="h-3 w-3" /> Established in {item.established}
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-6 py-6">
+                      <div className="flex items-center gap-3">
+                        <div className="h-8 w-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-400 border border-slate-200">
+                          <User className="h-4 w-4" />
+                        </div>
+                        <div className="flex flex-col">
+                          <span className="font-black text-navy-900 text-sm tracking-tight">{item.headName}</span>
+                          <span className="text-[9px] text-slate-400 font-bold uppercase tracking-tighter">Head of Department</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-6 py-6">
+                      <div className="flex flex-wrap gap-2">
+                        <Badge variant="secondary" className="bg-blue-600/10 text-blue-600 border-none font-black text-[10px] px-3 py-1 rounded-lg uppercase tracking-widest">
+                          <BookOpen className="h-3 w-3 mr-1.5" /> {item.courses.length} Active Programs
+                        </Badge>
+                      </div>
+                    </td>
+                    <td className="px-10 py-6 text-right">
+                      <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-4 group-hover:translate-x-0">
+                        <Button variant="ghost" size="icon" asChild className="h-10 w-10 rounded-xl bg-white shadow-sm border border-slate-100 text-slate-400 hover:text-blue-600 hover:bg-blue-50 hover:border-blue-100 transition-all">
+                          <Link to={`/admin/departments/${item.id}/edit`}>
+                            <Pencil className="h-4 w-4" />
+                          </Link>
+                        </Button>
+                        <Button 
+                          variant="ghost" 
+                          size="icon" 
+                          onClick={() => handleDelete(item.id)}
+                          className="h-10 w-10 rounded-xl bg-white shadow-sm border border-slate-100 text-slate-400 hover:text-red-600 hover:bg-red-50 hover:border-red-100 transition-all"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+                {items.length === 0 && (
+                  <tr>
+                    <td colSpan={4} className="px-10 py-20 text-center">
+                      <div className="flex flex-col items-center gap-4">
+                        <div className="h-20 w-20 rounded-3xl bg-slate-50 flex items-center justify-center">
+                          <Building2 className="h-10 w-10 text-slate-200" />
+                        </div>
+                        <div className="space-y-1">
+                          <p className="text-navy-900 font-black text-lg">No Units Registered</p>
+                          <p className="text-slate-400 text-sm font-medium">Departmental registry is currently empty.</p>
+                        </div>
+                        <Button variant="outline" size="lg" asChild className="mt-4 rounded-2xl border-slate-200 font-black hover:bg-navy-900 hover:text-white transition-all">
+                          <Link to="/admin/departments/new">Initialize First Unit</Link>
+                        </Button>
+                      </div>
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 }
